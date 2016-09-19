@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.CommentMapper">
+	<resultMap type="comment" id="commentBase">
+		<id column = "comment_no" property="commentNo"/>
+		<result column = "user_id" property="userId"></result>
+		<result column = "content" property="content"></result>
+	</resultMap>
+	<insert id="insert" parameterType="comment">
+		<selectKey keyProperty="commentNo" resultType="int" order="AFTER">
+			select SEQ_COMMENT.currval as commentNo from dual
+		</selectKey>
+		insert into tcomment values(SEQ_COMMENT.nextval,#{userId},#{content})
+	</insert>
+</mapper>
